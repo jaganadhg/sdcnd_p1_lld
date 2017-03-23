@@ -1,6 +1,9 @@
 # Self Driving Car Degree Project 1 - Lane Line Finding
 
-Project description and results are initially discussed in the Ipython Notebook 
+Detailed Project Report in PDF format is available at 
+https://github.com/jaganadhg/sdcnd_p1_lld/blob/master/SelfDrivingCar_Project_1.pdf 
+
+Project description and results are discussed in the Ipython Notebook 
 https://github.com/jaganadhg/sdcnd_p1_lld/blob/master/SDND_P1.ipynb
 
 The code for the project is located in https://github.com/jaganadhg/sdcnd_p1_lld/tree/master/thirdeye
