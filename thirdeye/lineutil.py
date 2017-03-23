@@ -39,6 +39,7 @@ class LineDrawBase(object):
     def draw_lines(self,img, lines, color=[0, 255, 0], thickness=2):
         """
         TODO : Improve here from the template
+	THis function was adopted from Udacitys tenplate 
         """
         for line in lines:
             for x1,y1,x2,y2 in line:
@@ -58,32 +59,6 @@ class LineDrawBase(object):
         y = lf(m,x).astype(np.uint16)
         
         return np.stack((x,y), axis = -1)
-    
-    def line_fitting(self,base_img,line,grey):
-        
-        region_tofit = 325
-        
-        tf_img = np.array([],dtype=np.uint16).reshape(0,2) #cnt
-        img_skleton = np.zeros_like(grey) #grey till canny
-        
-        for ll in line:
-            [x1,y1,x2,y2] = ll[0]
-            cv2.line(img_skleton,(x1,y1),(x2,y2),255,2)
-            line_points = self._get_line(ll)
-            
-            tf_img = np.vstack((tf_img,line_points))
-        
-        [vx,vy,x,y] = cv2.fitLine(tf_img,cv2.DIST_L2,0,0.01,0.01)
-        
-        max_x = int(((region_tofit - y) * vx/vy ) + x)
-        min_x = int(((grey.shape[0] - y) * vx / vy) + x) 
-        
-        my_imge = np.zeros_like(grey)
-        
-        #cv2.line(my_imge,(min_x,grey.shape[0] - 1),(max_x,region_tofit),255,2)
-        cv2.line(my_imge,(vy,vx),(x,y),255,2)
-        return my_imge
-        
     
     
     def draw(self,img,roi,rho,theta,threshold,min_line_len,max_line_gap):
@@ -107,13 +82,12 @@ class LineDrawBase(object):
         """
         hough_lines = self.hough_transform(roi,rho,theta,threshold,min_line_len,max_line_gap)
         image_with_line = draw_lines_h(img,hough_lines)
-        #draw_lines_h
-        #image_with_line = self.draw_lines(img,hough_lines)
         image_with_line_weighted = self.weighted_image(image_with_line,img)
         return image_with_line_weighted
 
     def weighted_image(self,lanes,img, alpha = .9 , beta = 0.95 , lbda = 0.):
         """
+	This function was adopted from the UDacity template code
         """
         temp_img = np.copy(img)*0
         return cv2.addWeighted(temp_img, alpha, lanes, beta, lbda)

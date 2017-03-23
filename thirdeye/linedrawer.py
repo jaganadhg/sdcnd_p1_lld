@@ -2,7 +2,10 @@
 from __future__ import division
 import numpy as np
 import cv2
+"""
 
+This function is adopted from https://github.com/georgesung/road_lane_line_detection
+"""
 
 
 trap_bottom_width = 0.85 
